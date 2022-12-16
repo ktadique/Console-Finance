@@ -98,27 +98,32 @@ console.log("Total Months: " + totalMonths);
 
 //Find the net total amount of Profit/Losses over the entire period.
 let sum = 0;
-let monthlyChangesSum = 0;
+let monthlyChangesSum = 0; // Monthly changes is the difference between last months and this/next months profit.
 let lastMonth = 0;
 //  access the number part of the child array and increment by one to get the next child array.
 for (let i = 0; i < finances.length; i++) {
-  //    find the sum of the entire period.
+  //  Find the sum of the entire period.
   sum = sum + finances[i][1];
+  //  Find the average of the **changes** in Profit/Losses over the entire period.
+  //    find the difference between this month and last month
+  if (i > 0) {
+    //first iteration will not go as 0 /> 0, then next iteration 1 > 0 (go comment on to line 112)
+    monthlyChangesSum = monthlyChangesSum + (finances[i][1] - lastMonth); // 1>0 so mCS = mCS + (febuary - january)
+  }
+  lastMonth = finances[i][1]; //i has now changed to 1, now last month = january (go to comment on line 110)
 }
-//      format output of sum into dollars globally > dollar.format(x)
-
+// Format output of sum into dollars globally > dollar.format(x)
 var dollar = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
   maximumFractionDigits: 0,
 });
 console.log("Total: " + dollar.format(sum));
-
-//Find the average of the **changes** in Profit/Losses over the entire period.
-//  find the difference between this month and last month
-
-//You will need to track what the total change in profits are from month to month and then find the average.
-//(`Total/Number of months`)
+//  track what the total change in profits are from month to month and then find the average.
+//    (`Total/Number of months`)
+console.log(
+  "Average Change: " + dollar.format(monthlyChangesSum / (finances.length - 1))
+);
 
 //Find the greatest increase in profits (date and amount) over the entire period.
 
