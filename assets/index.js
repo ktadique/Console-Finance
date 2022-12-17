@@ -100,6 +100,7 @@ console.log("Total Months: " + totalMonths);
 let sum = 0;
 let monthlyChangesSum = 0; // Monthly changes is the difference between last months and this/next months profit.
 let lastMonth = 0;
+
 //  access the number part of the child array and increment by one to get the next child array.
 for (let i = 0; i < finances.length; i++) {
   //  Find the sum of the entire period.
@@ -107,11 +108,27 @@ for (let i = 0; i < finances.length; i++) {
   //  Find the average of the **changes** in Profit/Losses over the entire period.
   //    find the difference between this month and last month
   if (i > 0) {
-    //first iteration will not go as 0 /> 0, then next iteration 1 > 0 (go comment on to line 112)
+    //first iteration will not go as 0 /> 0, then next iteration 1 > 0 (go comment on to line 113)
     monthlyChangesSum = monthlyChangesSum + (finances[i][1] - lastMonth); // 1>0 so mCS = mCS + (febuary - january)
   }
-  lastMonth = finances[i][1]; //i has now changed to 1, now last month = january (go to comment on line 110)
+  lastMonth = finances[i][1]; //i has now changed to 1, now last month = january (go to comment on line 111)
 }
+
+let lastMonthsRevenue = 0;
+let biggestProfitChange = 0;
+let monthOfBiggestProfitChange;
+
+for (let i = 0; i < finances.length; i++) {
+  if (i > 0) {
+    //only execute if this months profit is bigger than the biggest profit
+    if (finances[i][1] - lastMonthsRevenue > biggestProfitChange) {
+      biggestProfitChange = finances[i][1] - lastMonthsRevenue;
+      monthOfBiggestProfitChange = finances[i][0];
+    }
+  }
+  lastMonthsRevenue = finances[i][1];
+}
+
 // Format output of sum into dollars globally > dollar.format(x)
 var dollar = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -124,7 +141,12 @@ console.log("Total: " + dollar.format(sum));
 console.log(
   "Average Change: " + dollar.format(monthlyChangesSum / (finances.length - 1))
 );
-
 //Find the greatest increase in profits (date and amount) over the entire period.
+console.log(
+  "Greatest increase in profits: " +
+    monthOfBiggestProfitChange +
+    dollar.format(biggestProfitChange)
+);
 
 //Find the greatest decrease in losses (date and amount) over the entire period.
+console.log("Greatest decrease in profits: ");
