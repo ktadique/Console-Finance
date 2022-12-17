@@ -133,7 +133,7 @@ for (let i = 0; i < finances.length; i++) {
 var dollar = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
-  maximumFractionDigits: 0,
+  maximumFractionDigits: 2,
 });
 console.log("Total: " + dollar.format(sum));
 //  track what the total change in profits are from month to month and then find the average.
@@ -145,7 +145,10 @@ console.log(
 console.log(
   "Greatest increase in profits: " +
     monthOfBiggestProfitChange +
-    dollar.format(biggestProfitChange)
+    " " +
+    "(" +
+    dollar.format(biggestProfitChange) +
+    ")"
 );
 
 //Find the greatest decrease in losses (date and amount) over the entire period.
