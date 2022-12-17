@@ -117,6 +117,8 @@ for (let i = 0; i < finances.length; i++) {
 let lastMonthsRevenue = 0;
 let biggestProfitChange = 0;
 let monthOfBiggestProfitChange;
+let smallestProfitChange = 999999999;
+let monthOfSmallestProfitChange;
 
 for (let i = 0; i < finances.length; i++) {
   if (i > 0) {
@@ -124,6 +126,9 @@ for (let i = 0; i < finances.length; i++) {
     if (finances[i][1] - lastMonthsRevenue > biggestProfitChange) {
       biggestProfitChange = finances[i][1] - lastMonthsRevenue;
       monthOfBiggestProfitChange = finances[i][0];
+    } else if (finances[i][1] - lastMonthsRevenue < smallestProfitChange) {
+      smallestProfitChange = finances[i][1] - lastMonthsRevenue;
+      monthOfSmallestProfitChange = finances[i][0];
     }
   }
   lastMonthsRevenue = finances[i][1];
@@ -152,4 +157,11 @@ console.log(
 );
 
 //Find the greatest decrease in losses (date and amount) over the entire period.
-console.log("Greatest decrease in profits: ");
+console.log(
+  "Greatest decrease in profits: " +
+    monthOfSmallestProfitChange +
+    " " +
+    "(" +
+    dollar.format(smallestProfitChange) +
+    ")"
+);
