@@ -108,10 +108,10 @@ for (let i = 0; i < finances.length; i++) {
   //  Find the average of the **changes** in Profit/Losses over the entire period.
   //    find the difference between this month and last month
   if (i > 0) {
-    //first iteration will not go as 0 /> 0, then next iteration 1 > 0 (go comment on to line 113)
+    //first iteration will not go as 0 /> 0, then next iteration 1 > 0
     monthlyChangesSum = monthlyChangesSum + (finances[i][1] - lastMonth); // 1>0 so mCS = mCS + (febuary - january)
   }
-  lastMonth = finances[i][1]; //i has now changed to 1, now last month = january (go to comment on line 111)
+  lastMonth = finances[i][1]; //i has now changed to 1, now last month = january
 }
 
 let lastMonthsRevenue = 0;
